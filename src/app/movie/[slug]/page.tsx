@@ -76,30 +76,35 @@ export default async function MoviePage({ params }: Props) {
         </div>
 
         <div className="md:col-span-2 lg:col-span-3">
+          <div className="flex flex-wrap gap-2 mb-4">
+            {movie.genre.map((g) => (
+              <Badge key={g} variant="secondary">{g}</Badge>
+            ))}
+          </div>
           <h1 className="font-headline text-4xl lg:text-5xl font-bold">{movie.title}</h1>
           <div className="flex items-center gap-2 text-muted-foreground mt-2 mb-4">
             <Calendar className="w-4 h-4" />
             <span>{movie.year}</span>
           </div>
-
-          <div className="flex flex-wrap gap-2 mb-6">
-            {movie.genre.map((g) => (
-              <Badge key={g} variant="secondary">{g}</Badge>
-            ))}
-          </div>
           
-          <p className="text-lg leading-relaxed mb-8">{movie.description}</p>
+          <p className="text-lg leading-relaxed">{movie.description}</p>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 mb-8 text-sm">
-            <div className="flex items-center gap-2"><Languages className="w-5 h-5 text-primary" /> <strong>Language:</strong> {movie.language}</div>
-            <div className="flex items-center gap-2"><Clapperboard className="w-5 h-5 text-primary" /> <strong>Quality:</strong> {movie.quality}</div>
-            <div className="flex items-center gap-2"><Tag className="w-5 h-5 text-primary" /> <strong>Format:</strong> {movie.format}</div>
-          </div>
-          
-          <div className="mb-8">
-            <h3 className="font-headline text-xl font-semibold mb-2 flex items-center gap-2"><Users className="w-5 h-5 text-primary"/> Cast</h3>
-            <p className="text-muted-foreground">{movie.cast.join(', ')}</p>
-          </div>
+           <Card className="bg-muted/50 p-6 my-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
+                  <div>
+                      <h3 className="font-headline font-semibold mb-2 flex items-center gap-2"><Languages className="w-5 h-5 text-primary"/> Language</h3>
+                      <p className="text-muted-foreground">{movie.language}</p>
+                  </div>
+                  <div>
+                      <h3 className="font-headline font-semibold mb-2 flex items-center gap-2"><Clapperboard className="w-5 h-5 text-primary"/> Quality</h3>
+                      <p className="text-muted-foreground">{movie.quality} {movie.format}</p>
+                  </div>
+                  <div>
+                      <h3 className="font-headline font-semibold mb-2 flex items-center gap-2"><Users className="w-5 h-5 text-primary"/> Main Cast</h3>
+                      <p className="text-muted-foreground line-clamp-2">{movie.cast.join(', ')}</p>
+                  </div>
+              </div>
+          </Card>
 
            <Button asChild size="lg" className="w-full sm:w-auto font-bold text-lg">
              <Link href={`/download/${movie.slug}/step-1`}>
