@@ -61,3 +61,33 @@ export async function addMovie(movieData: Omit<Movie, 'slug' | '_id' | 'createdA
     const savedMovie = await movie.save();
     return JSON.parse(JSON.stringify(savedMovie));
 }
+
+export async function updateMovie(slug: string, movieData: Omit<Movie, 'slug' | '_id' | 'createdAt' | 'updatedAt'>): Promise<Movie> {
+    await dbConnect();
+    
+    const newSlug = slugify(movieData.title, { lower: true, strict: true, trim: true });
+    
+    const updatedMovie = await MovieModel.findOneAndUpdate(
+        { slug },
+        { ...movieData, slug: newSlug },
+        { new: true, runValidators: true }
+    ).lean();
+    
+    if (!updatedMovie) {
+        throw new Error('Movie not found for update.');
+    }
+    
+    return JSON.parse(JSON.stringify(updatedMovie));
+}
+
+export async function deleteMovie(slug: string): Promise<{ deletedCount?: number }> {
+    await dbConnect();
+    
+    const result = await MovieModel.deleteOne({ slug });
+
+    if (result.deletedCount === 0) {
+        throw new Error('Could not find movie to delete.');
+    }
+    
+    return result;
+}

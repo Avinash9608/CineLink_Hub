@@ -2,9 +2,8 @@ import { AdScript } from '@/components/ad-script';
 import MovieCard from '@/components/movie-card';
 import { getMovies } from '@/lib/data';
 import { Button } from '@/components/ui/button';
-import { PlusCircle } from 'lucide-react';
-import AddMovieForm from '@/app/admin/add/add-movie-form';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Shield } from 'lucide-react';
+import Link from 'next/link';
 
 export default async function Home({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   const movies = await getMovies();
@@ -17,18 +16,13 @@ export default async function Home({ searchParams }: { searchParams: { [key: str
   return (
     <div className="container mx-auto px-4 py-8">
       {showAdminLink && (
-        <Dialog>
-          <div className="flex justify-end mb-4">
-              <DialogTrigger asChild>
-                  <Button>
-                      <PlusCircle className="mr-2 h-4 w-4" /> Add New Movie
-                  </Button>
-              </DialogTrigger>
-          </div>
-          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-             <AddMovieForm secret={secret} />
-          </DialogContent>
-        </Dialog>
+        <div className="flex justify-end mb-4">
+            <Button asChild>
+                <Link href={`/admin?secret=${secret}`}>
+                    <Shield className="mr-2 h-4 w-4" /> Go to Admin Dashboard
+                </Link>
+            </Button>
+        </div>
       )}
       <section className="mb-12 animate-in fade-in duration-500">
         <h2 className="font-headline text-3xl font-bold mb-6 border-l-4 border-primary pl-4">
