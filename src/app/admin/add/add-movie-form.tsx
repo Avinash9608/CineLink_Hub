@@ -1,6 +1,6 @@
 'use client';
 
-import { useFormState } from 'react-dom';
+import { useActionState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createMovieAction } from './actions';
@@ -11,11 +11,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import type { z } from 'zod';
-import { useEffect } from 'react';
 
 export default function AddMovieForm({ secret }: { secret?: string }) {
     const initialState = { message: '', errors: {}, success: false };
-    const [state, dispatch] = useFormState(createMovieAction, initialState);
+    const [state, dispatch] = useActionState(createMovieAction, initialState);
     
     const form = useForm<z.infer<typeof movieSchema>>({
         resolver: zodResolver(movieSchema),
