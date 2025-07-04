@@ -7,12 +7,17 @@ import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
-export default async function Home({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const resolvedSearchParams = await searchParams;
   const movies = await getMovies();
   const trendingMovies = [...movies].sort(() => 0.5 - Math.random()).slice(0, 8);
   const latestMovies = [...movies].sort((a, b) => new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime()).slice(0, 8);
   
-  const secret = searchParams.secret as string | undefined;
+  const secret = typeof resolvedSearchParams.secret === 'string' ? resolvedSearchParams.secret : undefined;
   const showAdminLink = secret === process.env.ADMIN_SECRET;
 
   return (

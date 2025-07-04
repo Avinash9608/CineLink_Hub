@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from 'next/link';
 import { Film } from 'lucide-react';
 import SearchBar from './search-bar';
@@ -15,14 +16,18 @@ export default function Header() {
             </span>
           </Link>
           <div className="hidden md:flex flex-1 justify-center px-8">
-            <SearchBar />
+            <Suspense fallback={null}>
+              <SearchBar />
+            </Suspense>
           </div>
           <div className="flex items-center gap-4">
             <ThemeToggle />
           </div>
         </div>
         <div className="md:hidden pb-4">
-          <SearchBar />
+          <Suspense fallback={null}>
+            <SearchBar />
+          </Suspense>
         </div>
       </div>
     </header>
