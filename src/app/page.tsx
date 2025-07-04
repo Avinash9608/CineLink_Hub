@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Shield, ArrowDown } from 'lucide-react';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   const movies = await getMovies();
   const trendingMovies = [...movies].sort(() => 0.5 - Math.random()).slice(0, 8);
