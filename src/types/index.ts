@@ -1,4 +1,5 @@
 export interface Movie {
+  _id?: string;
   slug: string;
   title: string;
   year: number;
@@ -13,4 +14,6 @@ export interface Movie {
   trailer: string; // YouTube video ID
   telegramLink: string;
   directLink?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }

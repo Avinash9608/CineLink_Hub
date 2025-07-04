@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import { AdPlaceholder } from "@/components/ad-placeholder";
 import CountdownButton from "./countdown-button";
 
-export default function DownloadStep2Page({ params }: { params: { slug: string } }) {
-  const movie = getMovieBySlug(params.slug);
+export default async function DownloadStep2Page({ params }: { params: { slug: string } }) {
+  const movie = await getMovieBySlug(params.slug);
   if (!movie) {
     notFound();
   }

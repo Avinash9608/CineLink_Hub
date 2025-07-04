@@ -6,8 +6,8 @@ import { AdPlaceholder } from "@/components/ad-placeholder";
 import Link from "next/link";
 import { Download, Send } from "lucide-react";
 
-export default function DownloadFinalPage({ params }: { params: { slug: string } }) {
-  const movie = getMovieBySlug(params.slug);
+export default async function DownloadFinalPage({ params }: { params: { slug: string } }) {
+  const movie = await getMovieBySlug(params.slug);
   if (!movie) {
     notFound();
   }

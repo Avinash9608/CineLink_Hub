@@ -5,8 +5,8 @@ import { AdPlaceholder } from "@/components/ad-placeholder";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-export default function DownloadStep1Page({ params }: { params: { slug: string } }) {
-  const movie = getMovieBySlug(params.slug);
+export default async function DownloadStep1Page({ params }: { params: { slug: string } }) {
+  const movie = await getMovieBySlug(params.slug);
   if (!movie) {
     notFound();
   }

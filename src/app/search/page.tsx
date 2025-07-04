@@ -3,8 +3,8 @@ import SearchBar from "@/components/search-bar";
 import { searchMovies } from "@/lib/data";
 import { Suspense } from "react";
 
-function SearchResults({ query }: { query: string }) {
-  const results = searchMovies(query);
+async function SearchResults({ query }: { query: string }) {
+  const results = await searchMovies(query);
 
   return (
     <>

@@ -15,7 +15,7 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const movie = getMovieBySlug(params.slug);
+  const movie = await getMovieBySlug(params.slug);
 
   if (!movie) {
     return {
@@ -50,8 +50,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default function MoviePage({ params }: Props) {
-  const movie = getMovieBySlug(params.slug);
+export default async function MoviePage({ params }: Props) {
+  const movie = await getMovieBySlug(params.slug);
 
   if (!movie) {
     notFound();
