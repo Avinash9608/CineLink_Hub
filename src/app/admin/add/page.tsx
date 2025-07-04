@@ -2,7 +2,7 @@ import AddMovieForm from './add-movie-form';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 export default function AddMoviePage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
-    const secret = searchParams.secret;
+    const secret = searchParams.secret as string;
 
     if (secret !== process.env.ADMIN_SECRET) {
         return (
@@ -17,5 +17,9 @@ export default function AddMoviePage({ searchParams }: { searchParams: { [key: s
         );
     }
     
-    return <AddMovieForm />;
+    return (
+        <div className="container mx-auto px-4 py-8">
+            <AddMovieForm secret={secret} />
+        </div>
+    );
 }

@@ -3,7 +3,8 @@
 import { useFormState } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createMovieAction, movieSchema } from './actions';
+import { createMovieAction } from './actions';
+import { movieSchema } from './schema';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -12,7 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import type { z } from 'zod';
 import { useEffect } from 'react';
 
-export default function AddMovieForm() {
+export default function AddMovieForm({ secret }: { secret?: string }) {
     const initialState = { message: '', errors: {}, success: false };
     const [state, dispatch] = useFormState(createMovieAction, initialState);
     
@@ -43,87 +44,89 @@ export default function AddMovieForm() {
                 }
             }
         }
+        if(state.success) {
+            form.reset();
+        }
     }, [state, form]);
     
     return (
-        <div className="container mx-auto px-4 py-8">
-            <Card className="max-w-4xl mx-auto">
-                <CardHeader>
-                    <CardTitle>Add a New Movie</CardTitle>
-                    <CardDescription>Fill out the form below to add a new movie to the database.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <Form {...form}>
-                        <form action={dispatch} className="space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <FormField control={form.control} name="title" render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Title</FormLabel>
-                                        <FormControl><Input {...field} /></FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )} />
-                                <FormField control={form.control} name="year" render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Year</FormLabel>
-                                        <FormControl><Input type="number" {...field} /></FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )} />
-                            </div>
-
-                            <FormField control={form.control} name="thumbnail" render={({ field }) => (
+        <Card className="max-w-4xl mx-auto w-full border-0 shadow-none">
+            <CardHeader>
+                <CardTitle>Add a New Movie</CardTitle>
+                <CardDescription>Fill out the form below to add a new movie to the database.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Form {...form}>
+                    <form action={dispatch} className="space-y-6">
+                        {secret && <input type="hidden" name="secret" value={secret} />}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <FormField control={form.control} name="title" render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Thumbnail URL</FormLabel>
-                                    <FormControl><Input {...field} placeholder="https://placehold.co/500x750.png" /></FormControl>
+                                    <FormLabel>Title</FormLabel>
+                                    <FormControl><Input {...field} /></FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )} />
-                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <FormField control={form.control} name="language" render={({ field }) => (
-                                    <FormItem><FormLabel>Language</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
-                                )} />
-                                <FormField control={form.control} name="quality" render={({ field }) => (
-                                    <FormItem><FormLabel>Quality</FormLabel><FormControl><Input {...field} placeholder="e.g. 1080p" /></FormControl><FormMessage /></FormItem>
-                                )} />
-                                <FormField control={form.control} name="format" render={({ field }) => (
-                                    <FormItem><FormLabel>Format</FormLabel><FormControl><Input {...field} placeholder="e.g. x265" /></FormControl><FormMessage /></FormItem>
-                                )} />
-                            </div>
+                            <FormField control={form.control} name="year" render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Year</FormLabel>
+                                    <FormControl><Input type="number" {...field} /></FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )} />
+                        </div>
 
-                            <FormField control={form.control} name="description" render={({ field }) => (
-                                <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea {...field} rows={4} /></FormControl><FormMessage /></FormItem>
+                        <FormField control={form.control} name="thumbnail" render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Thumbnail URL</FormLabel>
+                                <FormControl><Input {...field} placeholder="https://placehold.co/500x750.png" /></FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )} />
+                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <FormField control={form.control} name="language" render={({ field }) => (
+                                <FormItem><FormLabel>Language</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
                             )} />
-                            
-                            <FormField control={form.control} name="genre" render={({ field }) => (
-                                <FormItem><FormLabel>Genre (comma separated)</FormLabel><FormControl><Input {...field} placeholder="e.g. Action, Thriller" /></FormControl><FormMessage /></FormItem>
+                            <FormField control={form.control} name="quality" render={({ field }) => (
+                                <FormItem><FormLabel>Quality</FormLabel><FormControl><Input {...field} placeholder="e.g. 1080p" /></FormControl><FormMessage /></FormItem>
                             )} />
-                            <FormField control={form.control} name="cast" render={({ field }) => (
-                                <FormItem><FormLabel>Cast (comma separated)</FormLabel><FormControl><Input {...field} placeholder="e.g. Actor One, Actor Two" /></FormControl><FormMessage /></FormItem>
+                            <FormField control={form.control} name="format" render={({ field }) => (
+                                <FormItem><FormLabel>Format</FormLabel><FormControl><Input {...field} placeholder="e.g. x265" /></FormControl><FormMessage /></FormItem>
                             )} />
-                             <FormField control={form.control} name="tags" render={({ field }) => (
-                                <FormItem><FormLabel>Tags (comma separated)</FormLabel><FormControl><Input {...field} placeholder="e.g. Bollywood, Hollywood" /></FormControl><FormMessage /></FormItem>
-                            )} />
-                             <FormField control={form.control} name="trailer" render={({ field }) => (
-                                <FormItem><FormLabel>Trailer ID</FormLabel><FormControl><Input {...field} placeholder="YouTube Video ID only, e.g. dQw4w9WgXcQ" /></FormControl><FormMessage /></FormItem>
-                            )} />
+                        </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <FormField control={form.control} name="telegramLink" render={({ field }) => (
-                                    <FormItem><FormLabel>Telegram Link</FormLabel><FormControl><Input type="url" {...field} /></FormControl><FormMessage /></FormItem>
-                                )} />
-                                <FormField control={form.control} name="directLink" render={({ field }) => (
-                                    <FormItem><FormLabel>Direct Download Link (Optional)</FormLabel><FormControl><Input type="url" {...field} /></FormControl><FormMessage /></FormItem>
-                                )} />
-                            </div>
+                        <FormField control={form.control} name="description" render={({ field }) => (
+                            <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea {...field} rows={4} /></FormControl><FormMessage /></FormItem>
+                        )} />
+                        
+                        <FormField control={form.control} name="genre" render={({ field }) => (
+                            <FormItem><FormLabel>Genre (comma separated)</FormLabel><FormControl><Input {...field} placeholder="e.g. Action, Thriller" /></FormControl><FormMessage /></FormItem>
+                        )} />
+                        <FormField control={form.control} name="cast" render={({ field }) => (
+                            <FormItem><FormLabel>Cast (comma separated)</FormLabel><FormControl><Input {...field} placeholder="e.g. Actor One, Actor Two" /></FormControl><FormMessage /></FormItem>
+                        )} />
+                         <FormField control={form.control} name="tags" render={({ field }) => (
+                            <FormItem><FormLabel>Tags (comma separated)</FormLabel><FormControl><Input {...field} placeholder="e.g. Bollywood, Hollywood" /></FormControl><FormMessage /></FormItem>
+                        )} />
+                         <FormField control={form.control} name="trailer" render={({ field }) => (
+                            <FormItem><FormLabel>Trailer ID</FormLabel><FormControl><Input {...field} placeholder="YouTube Video ID only, e.g. dQw4w9WgXcQ" /></FormControl><FormMessage /></FormItem>
+                        )} />
 
-                            {state.message && !state.success && <p className="text-sm font-medium text-destructive">{state.message}</p>}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <FormField control={form.control} name="telegramLink" render={({ field }) => (
+                                <FormItem><FormLabel>Telegram Link</FormLabel><FormControl><Input type="url" {...field} /></FormControl><FormMessage /></FormItem>
+                            )} />
+                            <FormField control={form.control} name="directLink" render={({ field }) => (
+                                <FormItem><FormLabel>Direct Download Link (Optional)</FormLabel><FormControl><Input type="url" {...field} /></FormControl><FormMessage /></FormItem>
+                            )} />
+                        </div>
 
-                            <Button type="submit" size="lg" className="w-full">Add Movie</Button>
-                        </form>
-                    </Form>
-                </CardContent>
-            </Card>
-        </div>
+                        {state.message && !state.success && <p className="text-sm font-medium text-destructive">{state.message}</p>}
+
+                        <Button type="submit" size="lg" className="w-full">Add Movie</Button>
+                    </form>
+                </Form>
+            </CardContent>
+        </Card>
     );
 }
