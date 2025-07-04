@@ -13,6 +13,7 @@ export default async function DownloadFinalPage({ params }: { params: { slug: st
   }
 
   const directAdLink = "https://unhealthyirreparable.com/cit2c8ca?key=7566cfdb82de49ba4912160b26b7621f";
+  const telegramAdLink = "https://tpi.li/nXPuWjXk";
 
   return (
     <div>
@@ -28,7 +29,7 @@ export default async function DownloadFinalPage({ params }: { params: { slug: st
             </CardHeader>
             <CardContent>
                 <Button asChild className="w-full" size="lg">
-                    <a href={movie.telegramLink} target="_blank" rel="noopener noreferrer">
+                    <a href={telegramAdLink} target="_blank" rel="noopener noreferrer">
                         <Send className="mr-2 h-5 w-5"/> Open Telegram
                     </a>
                 </Button>
