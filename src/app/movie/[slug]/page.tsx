@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       keywords: seoData.metaTags,
     };
   } catch (error) {
-    console.error('AI SEO Metadata generation failed:', error);
+    console.error('AI SEO Metadata generation failed. This might be due to a missing API key. Full error:', error);
     return {
       title: `${movie.title} (${movie.year}) - CineLink Hub`,
       description: movie.description,
