@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import { Toaster } from '@/components/ui/toaster';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'CineLink Hub',
@@ -27,6 +28,8 @@ export default function RootLayout({
         <main className="flex-grow">{children}</main>
         <Footer />
         <Toaster />
+        <Script id="ad-script-d51fae" type="text/javascript" src="//unhealthyirreparable.com/d5/1f/ae/d51fae18f343c883880c3ae7f62b9cdb.js" strategy="lazyOnload" />
+        <Script id="ad-script-1235aa" type="text/javascript" src="//unhealthyirreparable.com/12/35/aa/1235aa99934d768925bb4f2f03375fe4.js" strategy="lazyOnload" />
       </body>
     </html>
   );

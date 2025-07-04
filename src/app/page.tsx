@@ -1,4 +1,4 @@
-import { AdPlaceholder } from '@/components/ad-placeholder';
+import { AdScript } from '@/components/ad-script';
 import MovieCard from '@/components/movie-card';
 import { getMovies } from '@/lib/data';
 import { Button } from '@/components/ui/button';
@@ -41,9 +41,9 @@ export default async function Home({ searchParams }: { searchParams: { [key: str
           {trendingMovies.length > 3 && (
             <div
               key="trending-ad"
-              className="lg:col-span-4 sm:col-span-2 col-span-1 py-4"
+              className="lg:col-span-4 sm:col-span-2 col-span-1 py-4 flex justify-center"
             >
-              <AdPlaceholder />
+              <AdScript adKey="49f98c66c11f5b62fe748dba3eb85f7a" format="iframe" height={90} width={728} />
             </div>
           )}
         </div>

@@ -7,7 +7,7 @@ import { generateSeoMetadata } from '@/ai/flows/seo-metadata-generator';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { AdPlaceholder } from '@/components/ad-placeholder';
+import { AdScript } from '@/components/ad-script';
 import { Calendar, Clapperboard, Download, Languages, Tag, Users } from 'lucide-react';
 
 type Props = {
@@ -107,8 +107,8 @@ export default async function MoviePage({ params }: Props) {
              </Link>
            </Button>
 
-          <div className="my-8">
-            <AdPlaceholder text="Ad below download button" />
+          <div className="my-8 flex justify-center">
+            <AdScript adKey="f6e5fdd76b39946e6af9ecb89dda9d90" format="iframe" height={250} width={300} />
           </div>
 
           {movie.trailer && (

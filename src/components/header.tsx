@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Film } from 'lucide-react';
 import SearchBar from './search-bar';
-import { AdPlaceholder } from './ad-placeholder';
+import { AdScript } from './ad-script';
 
 export default function Header() {
   return (
@@ -25,8 +25,8 @@ export default function Header() {
           <SearchBar />
         </div>
       </div>
-      <div className="border-t">
-        <AdPlaceholder text="Header Banner Ad (728x90)" className="h-24" />
+      <div className="border-t flex justify-center py-2">
+        <AdScript adKey="49f98c66c11f5b62fe748dba3eb85f7a" format="iframe" height={90} width={728} />
       </div>
     </header>
   );

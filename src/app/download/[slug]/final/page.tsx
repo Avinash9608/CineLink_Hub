@@ -2,7 +2,7 @@ import { getMovieBySlug } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { AdPlaceholder } from "@/components/ad-placeholder";
+import { AdScript } from "@/components/ad-script";
 import Link from "next/link";
 import { Download, Send } from "lucide-react";
 
@@ -11,6 +11,8 @@ export default async function DownloadFinalPage({ params }: { params: { slug: st
   if (!movie) {
     notFound();
   }
+
+  const directAdLink = "https://unhealthyirreparable.com/cit2c8ca?key=7566cfdb82de49ba4912160b26b7621f";
 
   return (
     <div>
@@ -42,7 +44,7 @@ export default async function DownloadFinalPage({ params }: { params: { slug: st
                 </CardHeader>
                 <CardContent>
                     <Button asChild variant="secondary" className="w-full" size="lg">
-                        <a href={movie.directLink} target="_blank" rel="noopener noreferrer">
+                        <a href={directAdLink} target="_blank" rel="noopener noreferrer">
                            <Download className="mr-2 h-5 w-5"/> Use Direct Link
                         </a>
                     </Button>
@@ -59,7 +61,7 @@ export default async function DownloadFinalPage({ params }: { params: { slug: st
         )}
       </div>
 
-      <AdPlaceholder text="Ad on final download page" className="h-48" />
+      <AdScript adKey="49f98c66c11f5b62fe748dba3eb85f7a" format="iframe" height={90} width={728} className="mx-auto" />
     </div>
   );
 }

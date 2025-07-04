@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { Film } from 'lucide-react';
-import { AdPlaceholder } from './ad-placeholder';
+import { AdScript } from './ad-script';
 
 export default function Footer() {
   return (
     <footer className="bg-card border-t mt-auto">
-      <div className="py-6">
-        <AdPlaceholder text="Footer Banner Ad (728x90)" className="h-24"/>
+      <div className="py-2 flex justify-center">
+        <AdScript adKey="49f98c66c11f5b62fe748dba3eb85f7a" format="iframe" height={90} width={728} />
       </div>
       <div className="container mx-auto px-4 py-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">

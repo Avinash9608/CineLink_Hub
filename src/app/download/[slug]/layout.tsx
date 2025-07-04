@@ -1,4 +1,4 @@
-import { AdPlaceholder } from "@/components/ad-placeholder";
+import { AdScript } from "@/components/ad-script";
 import { Film } from "lucide-react";
 
 export default function DownloadLayout({
@@ -8,7 +8,9 @@ export default function DownloadLayout({
 }) {
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-14rem)] container mx-auto px-4 py-8 text-center">
-       <AdPlaceholder text="Floating Sticky Ad" className="fixed bottom-4 right-4 h-32 w-48 hidden md:flex !z-50"/>
+       <div className="fixed bottom-4 right-4 hidden md:flex z-50">
+        <AdScript adKey="9d0ba8b9534eb2c5d6424f17b95c9c0e" format="iframe" height={300} width={160} />
+       </div>
       <div className="w-full max-w-4xl">
         <div className="mb-8">
             <Film className="h-12 w-12 text-primary mx-auto" />
