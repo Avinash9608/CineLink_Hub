@@ -14,19 +14,23 @@ export default function Home() {
           Trending Movies
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {trendingMovies.map((movie, index) => (
-             <>
-              <MovieCard key={movie.slug} movie={movie} />
-              {index === 3 && (
-                <div className="lg:col-span-4 sm:col-span-2 col-span-1 py-4">
-                   <AdPlaceholder />
+          {trendingMovies.flatMap((movie, index) => {
+            const elements = [<MovieCard key={movie.slug} movie={movie} />];
+            if (index === 3) {
+              elements.push(
+                <div
+                  key="trending-ad"
+                  className="lg:col-span-4 sm:col-span-2 col-span-1 py-4"
+                >
+                  <AdPlaceholder />
                 </div>
-              )}
-            </>
-          ))}
+              );
+            }
+            return elements;
+          })}
         </div>
       </section>
-      
+
       <section className="animate-in fade-in duration-700">
         <h2 className="font-headline text-3xl font-bold mb-6 border-l-4 border-primary pl-4">
           Latest Releases
