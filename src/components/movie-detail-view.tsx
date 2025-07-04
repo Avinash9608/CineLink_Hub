@@ -34,30 +34,32 @@ export default function MovieDetailView({ movie }: { movie: Movie }) {
             <p className="text-white/80 font-body text-base leading-relaxed mb-8 line-clamp-3 font-light">{movie.description}</p>
             
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-              <Dialog open={isTrailerOpen} onOpenChange={setIsTrailerOpen}>
-                <DialogTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="bg-transparent border-2 border-white text-white hover:bg-accent hover:border-accent hover:text-accent-foreground font-bold text-lg py-6 px-8 self-start w-full sm:w-auto"
-                  >
-                    <PlayCircle className="mr-2" />
-                    Watch Trailer
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-4xl p-0 bg-black border-0">
-                  <div className="aspect-video">
-                     <iframe
-                        width="100%"
-                        height="100%"
-                        src={`https://www.youtube.com/embed/${movie.trailer}?autoplay=1`}
-                        title="YouTube video player"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
-                  </div>
-                </DialogContent>
-              </Dialog>
+              {movie.trailer && (
+                <Dialog open={isTrailerOpen} onOpenChange={setIsTrailerOpen}>
+                  <DialogTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className="bg-transparent border-2 border-white text-white hover:bg-accent hover:border-accent hover:text-accent-foreground font-bold text-lg py-6 px-8 self-start w-full sm:w-auto"
+                    >
+                      <PlayCircle className="mr-2" />
+                      Watch Trailer
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-4xl p-0 bg-black border-0">
+                    <div className="aspect-video">
+                       <iframe
+                          width="100%"
+                          height="100%"
+                          src={`https://www.youtube.com/embed/${movie.trailer}?autoplay=1`}
+                          title="YouTube video player"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              )}
 
               <Button asChild size="lg" className="font-bold text-lg py-6 px-8 w-full sm:w-auto">
                 <Link href={`/download/${movie.slug}/step-1`}>
