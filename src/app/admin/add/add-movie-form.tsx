@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState, useEffect } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createMovieAction } from './actions';
@@ -15,6 +15,7 @@ import type { z } from 'zod';
 export default function AddMovieForm({ secret }: { secret?: string }) {
     const initialState = { message: '', errors: {}, success: false };
     const [state, dispatch] = useActionState(createMovieAction, initialState);
+    const [uploading, setUploading] = useState(false);
     
     const form = useForm<z.infer<typeof movieSchema>>({
         resolver: zodResolver(movieSchema),
@@ -77,8 +78,31 @@ export default function AddMovieForm({ secret }: { secret?: string }) {
 
                         <FormField control={form.control} name="thumbnail" render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Thumbnail URL</FormLabel>
-                                <FormControl><Input {...field} placeholder="https://placehold.co/500x750.png" /></FormControl>
+                                <FormLabel>Thumbnail</FormLabel>
+                                <FormControl>
+                                    <div>
+                                        <Input type="file" accept="image/*" onChange={async e => {
+                                            const file = e.target.files?.[0];
+                                            if (!file) return;
+                                            setUploading(true);
+                                            const formData = new FormData();
+                                            formData.append('file', file);
+                                            formData.append('upload_preset', 'ml_default');
+                                            formData.append('api_key', '759566998672355');
+                                            const res = await fetch('https://api.cloudinary.com/v1_1/dfdtdqumn/image/upload', {
+                                                method: 'POST',
+                                                body: formData,
+                                            });
+                                            const data = await res.json();
+                                            if (data.secure_url) {
+                                                field.onChange(data.secure_url);
+                                            }
+                                            setUploading(false);
+                                        }} />
+                                        {uploading && <div className="text-xs text-muted-foreground mt-2">Uploading...</div>}
+                                        {field.value && <img src={field.value} alt="Thumbnail preview" className="mt-2 rounded w-32 h-48 object-cover border" />}
+                                    </div>
+                                </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )} />

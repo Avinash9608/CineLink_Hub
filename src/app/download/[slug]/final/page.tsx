@@ -12,9 +12,8 @@ export default async function DownloadFinalPage({ params }: { params: { slug: st
     notFound();
   }
 
-  const directAdLink = "https://unhealthyirreparable.com/cit2c8ca?key=7566cfdb82de49ba4912160b26b7621f";
-  const telegramAdLink = "https://tpi.li/nXPuWjXk";
-
+  const directAdLink = "https://tpi.li/nLdTaM";
+  
   return (
     <div>
       <h2 className="text-xl font-semibold mb-2 font-headline">Step 3 of 3: Download Your File</h2>
@@ -29,7 +28,7 @@ export default async function DownloadFinalPage({ params }: { params: { slug: st
             </CardHeader>
             <CardContent>
                 <Button asChild className="w-full" size="lg">
-                    <a href={telegramAdLink} target="_blank" rel="noopener noreferrer">
+                    <a href={movie.telegramLink} target="_blank" rel="noopener noreferrer">
                         <Send className="mr-2 h-5 w-5"/> Open Telegram
                     </a>
                 </Button>

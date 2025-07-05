@@ -3,20 +3,22 @@ import Image from 'next/image';
 import type { Movie } from '@/types';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Calendar, Languages, Hdmi, Tag } from 'lucide-react';
+import { Calendar, Languages, Tag } from 'lucide-react';
 
 interface MovieCardProps {
   movie: Movie;
 }
 
 export default function MovieCard({ movie }: MovieCardProps) {
+  const imageSrc = movie.thumbnail;
+
   return (
     <Link href={`/movie/${movie.slug}`} className="group">
       <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/50 hover:-translate-y-1 flex flex-col">
         <CardHeader className="p-0 relative">
           <div className="aspect-[2/3] w-full relative">
             <Image
-              src={movie.thumbnail}
+              src={imageSrc}
               alt={movie.title}
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-105"

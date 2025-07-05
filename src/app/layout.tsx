@@ -23,6 +23,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=PT+Sans:wght@400;700&family=Source+Code+Pro&display=swap" rel="stylesheet" />
+        <meta name="google-site-verification" content="UdoUs0WK09Zw685atDnmJbS6ALuBn6BioaCO1qwu0s8" />
       </head>
       <body className={cn('font-body antialiased min-h-screen bg-background flex flex-col')}>
         <ThemeProvider

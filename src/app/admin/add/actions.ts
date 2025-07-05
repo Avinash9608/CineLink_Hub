@@ -24,6 +24,7 @@ export async function createMovieAction(prevState: FormState, formData: FormData
     };
   }
 
+  // Get the Cloudinary URL string from the form data
   const data = validatedFields.data;
 
   const movieData = {
